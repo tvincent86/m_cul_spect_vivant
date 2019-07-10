@@ -3,8 +3,9 @@
 Ensemble des éléments constituant la mise en oeuvre d'une application websig permettant la gestion, localisation, recherche, ... des structures intervenant dans le spectacle vivant :
 
 - Script d'initialisation de la base de données
-  * [Suivi des modifications](sql/pei_00_trace.sql)
   * [Création  de la structure](sql/m_cul_spectacl_vivant.sql)
+  
+  * [Suivi des modifications](sql/pei_00_trace.sql)
   * [Création des vues de gestion](sql/pei_20_vues_gestion.sql)
   * [Création des vues applicatives](sql/pei_21_vues_xapps.sql)
   * [Création des vues applicatives gd public](sql/pei_22_vues_xapps_public.sql)
