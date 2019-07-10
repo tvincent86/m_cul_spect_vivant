@@ -1,12 +1,14 @@
 # m_cul_spect_vivant
 Script SQL pour les données métiers "Culture" et sur la thématique du spectacle vivant.
 
-/* SPECTALE VIVANT V1.0 */
-/* Creation de la structure des données */
-/* PostgreSQL/PostGIS */
-
-/* Propriétaire : Région Nouvelle-Aquitaine - http://nouvelle-aquitaine.fr/ */
-/* Auteur : Tony VINCENT */
+------------------------------------------------------------------------
+-- SPECTALE VIVANT V1.0
+-- Creation de la structure des données
+-- PostgreSQL/PostGIS
+--
+-- Propriétaire : Région Nouvelle-Aquitaine - http://nouvelle-aquitaine.fr/ 
+-- Auteur : Tony VINCENT
+------------------------------------------------------------------------
 
 
 ------------------------------------------------------------------------
