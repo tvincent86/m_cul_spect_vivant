@@ -8,6 +8,7 @@ Script SQL pour les données métiers "Culture" et sur la thématique du spectac
 /* Propriétaire : Région Nouvelle-Aquitaine - http://nouvelle-aquitaine.fr/ */
 /* Auteur : Tony VINCENT */
 
+
 ------------------------------------------------------------------------
 -- Schéma : Création du schéma
 ------------------------------------------------------------------------
