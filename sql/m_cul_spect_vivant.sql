@@ -95,6 +95,16 @@ COMMENT ON COLUMN met_cul.m_cul_spect_vivant_struct_p.date_maj IS 'Correspond à
 COMMENT ON COLUMN met_cul.m_cul_spect_vivant_struct_p.loc_pert IS 'Pertinence de la localisation faite via QBano (plus il se rapproche de 1, plus c''est juste)';
 COMMENT ON COLUMN met_cul.m_cul_spect_vivant_struct_p.loc_type IS 'Type de localisation (Au numéro, à la rue, à la commune, ...';
 
+
+-- Index: sidx_cul_spect_vivant_struct_p_geom
+-- DROP INDEX met_cul.sidx_m_cul_spect_vivant_struct_p_geom;
+CREATE INDEX sidx_cul_spect_vivant_struct_p_geom ON met_cul.m_cul_spect_vivant_struct_p USING gist (geom);
+
+-- Index: sidx_cul_spect_vivant_struct_p_nom
+-- DROP INDEX met_cul.sidx_m_cul_spect_vivant_struct_p_nom;
+CREATE INDEX sidx_cul_spect_vivant_struct_p_nom ON met_cul.m_cul_spect_vivant_struct_p USING btree (nom);
+
+
 -- Import de données pour TEST
 --DELETE FROM met_cul.m_cul_spect_vivant_struct_p;
 INSERT INTO met_cul.m_cul_spect_vivant_struct_p(
@@ -171,4 +181,15 @@ INSERT INTO met_cul.m_cul_spect_vivant_detail(
 	siret, annee, classe, cat, cat_sc1, cat_sc2, esthetique)
 SELECT REPLACE(REPLACE(siret,' ',''),'.',''), '2019', 'production', categorie, "sous categorie 1", "sous categorie 2", esthetique
 	FROM z_maj.spectacle_vivant_detail_production2 WHERE siret IS NOT NULL AND siret != 'non renseigné'; 
+
+
+------------------------------------------------------------------------
+-- met_cul.m_cul_v_spect_vivant
+------------------------------------------------------------------------
+
+CREATE OR REPLACE VIEW met_cul.m_cul_v_spect_vivant AS
+SELECT (ROW_NUMBER() OVER())::integer AS gid, t1.*, t2.classe, t2.cat, t2.cat_sc1, t2.cat_sc2, t2.esthetique,t2.data_val AS data_val_detail, t2.date_sai AS date_val_sai_detail, t2.date_maj AS date_maj_detail
+FROM met_cul.m_cul_spect_vivant_struct_p t1
+LEFT JOIN met_cul.m_cul_spect_vivant_detail t2
+ON t1.siret = t2.siret AND t1.annee = t2.annee ORDER BY t1.siret ASC;
 
