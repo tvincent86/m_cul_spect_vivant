@@ -16,7 +16,7 @@
 -- Schéma : Création du schéma
 ------------------------------------------------------------------------
 /*
--- DROP SCHEMA met_cul;
+-- DROP SCHEMA IF EXIST met_cul;
 CREATE SCHEMA met_cul
   AUTHORIZATION "pre-sig-usr";
  
