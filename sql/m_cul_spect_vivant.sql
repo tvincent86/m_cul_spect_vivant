@@ -145,6 +145,8 @@ CREATE TABLE met_cul.m_cul_spect_vivant_detail
 -- Droits sur la table
 GRANT ALL ON TABLE met_cul.m_cul_spect_vivant_detail TO "pre-sig-usr";
 GRANT ALL ON TABLE met_cul.m_cul_spect_vivant_detail TO "pre-sig-ro";
+GRANT ALL ON SEQUENCE met_cul.m_cul_spect_vivant_detail_id_seq TO "pre-sig-ro";
+
 
 -- Description de la table
 COMMENT ON TABLE met_cul.m_cul_spect_vivant_detail
@@ -183,6 +185,64 @@ SELECT REPLACE(REPLACE(siret,' ',''),'.',''), '2019', 'production', categorie, "
 	FROM z_maj.spectacle_vivant_detail_production2 WHERE siret IS NOT NULL AND siret != 'non renseigné'; 
 
 
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+-- Liste de valeurs
+
+DROP TABLE IF EXISTE met_cul.m_cul_spect_vivant_lt_class;
+CREATE TABLE met_cul.m_cul_spect_vivant_lt_class
+(
+    id serial,
+    code character varying(10) NOT NULL,
+    class character varying(100) NOT NULL, -- (Diffusion/Création/Production)
+    cat character varying(150),
+    cat_sc1 character varying(150), 
+    cat_sc2 character varying(150), 
+    CONSTRAINT m_cul_spect_vivant_lt_class_pkey PRIMARY KEY (id),
+    CONSTRAINT m_cul_spect_vivant_lt_class_uniq UNIQUE (class,cat,cat_sc1,cat_sc2)
+);
+
+--
+GRANT ALL ON TABLE met_cul.m_cul_spect_vivant_lt_class TO "pre-sig-usr";
+GRANT ALL ON TABLE met_cul.m_cul_spect_vivant_lt_class TO "pre-sig-ro";
+
+COMMENT ON TABLE met_cul.m_cul_spect_vivant_lt_class
+  IS 'Table permettant de décrire le type de structure';
+  
+--  
+INSERT INTO met_cul.m_cul_spect_vivant_lt_class(code,class,cat,cat_sc1,cat_sc2)
+    VALUES ('00','Non renseigné',null,null,null),
+	   ('01','diffusion',null,null,null),
+	   ('01_01','diffusion','Labels de diffusion',null,null),
+	   ('01_01_01','diffusion','Labels de diffusion','scène nationale',null),
+	   ('01_01_02','diffusion','Labels de diffusion','scène conventionnée',null),
+	   ('01_01_01','diffusion','Labels de diffusion','scène nationale','art et création'),
+	   ('01_01_01','diffusion','Labels de diffusion','scène nationale','art en territoire'),
+	   ('01_01_01','diffusion','Labels de diffusion','scène nationale','art, enfance, jeunesse'),
+	   ('01_01_02','diffusion','Labels de diffusion','scène conventionnée','art et création'),	   
+	   ('01_01_02','diffusion','Labels de diffusion','scène conventionnée','art en territoire'),	   
+	   ('01_01_02','diffusion','Labels de diffusion','scène conventionnée','art, enfance, jeunesse'),	   
+	   ('01_02','diffusion','Scènes de territoire et saisons sans lieu',null,null),
+	   ('01_02_01','diffusion','Scènes de territoire et saisons sans lieu','scène de territoire',null),
+	   ('01_02_02','diffusion','Scènes de territoire et saisons sans lieu','saison sans lieu',null),
+	   ('02','création',null,null,null),
+	   ('02_01','création','Labels de la création',null,null),
+	   ('02_01_01','création','Labels de la création','CentreChorégraphique National',null),
+	   ('02_01_02','création','Labels de la création','Centre Dramatique national',null),
+	   ('02_02','création','Equipes artistiques',null,null),
+	   ('02_02_01','création','Équipes artistiques','Équipes artistiques Spectacle Vivant',null),
+	   ('02_02_02','création','Équipes artistiques','Ensembles musicaux',null),
+	   ('02_03','création','Orchestres',null,null),
+	   ('02_03_01','création','Orchestres','Orchestres',null),
+	   ('03','production',null,null,null),
+	   ('03_01','production','Labels de production',null,null),
+	   ('03_02','production','Lieux de fabrique',null,null),
+	   ('03_03','production','Opérateurs spécifiques',null,null),
+	   ('03','production',null,null,null),
+	   ('99','Autre',null,null,null);
+
+
+------------------------------------------------------------------------
 ------------------------------------------------------------------------
 -- met_cul.m_cul_v_spect_vivant
 ------------------------------------------------------------------------
