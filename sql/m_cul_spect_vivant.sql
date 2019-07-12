@@ -15,23 +15,23 @@
 ------------------------------------------------------------------------
 -- Schéma : Création du schéma
 ------------------------------------------------------------------------
-/*
--- DROP SCHEMA IF EXIST met_cul;
-CREATE SCHEMA met_cul
+
+-- DROP SCHEMA IF EXISTS met_cul;
+CREATE SCHEMA IF NOT EXISTS met_cul
   AUTHORIZATION "pre-sig-usr";
  
 COMMENT ON SCHEMA met_cul IS 'Schéma pour les données métiers sur la culture';
 
 GRANT ALL ON SCHEMA met_cul TO "pre-sig-usr";
 GRANT ALL ON SCHEMA met_cul TO "pre-sig-ro";
-*/
+
 
 ------------------------------------------------------------------------
 -- met_cul.m_cul_spect_vivant_struct_p
 ------------------------------------------------------------------------
 
 --DROP TABLE IF EXISTS met_cul.m_cul_spect_vivant_struct_p;
-CREATE TABLE met_cul.m_cul_spect_vivant_struct_p
+CREATE TABLE IF NOT EXISTS  met_cul.m_cul_spect_vivant_struct_p
 (
     id serial,
     geom geometry(MultiPoint,2154),
@@ -124,7 +124,7 @@ ON t1."cp insee" = t2.insee_com  ORDER BY t1.siret;
 ------------------------------------------------------------------------
 
 --DROP TABLE IF EXISTS met_cul.m_cul_spect_vivant_detail;
-CREATE TABLE met_cul.m_cul_spect_vivant_detail
+CREATE TABLE IF NOT EXISTS met_cul.m_cul_spect_vivant_detail
 (
     id serial,
     siret character varying(15) NOT NULL,
@@ -189,8 +189,8 @@ SELECT REPLACE(REPLACE(siret,' ',''),'.',''), '2019', 'production', categorie, "
 ------------------------------------------------------------------------
 -- Liste de valeurs
 
-DROP TABLE IF EXISTE met_cul.m_cul_spect_vivant_lt_class;
-CREATE TABLE met_cul.m_cul_spect_vivant_lt_class
+--DROP TABLE IF EXISTS met_cul.m_cul_spect_vivant_lt_class;
+CREATE TABLE IF NOT EXISTS met_cul.m_cul_spect_vivant_lt_class
 (
     id serial,
     code character varying(10) NOT NULL,
